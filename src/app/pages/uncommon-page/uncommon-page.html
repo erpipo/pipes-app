@@ -1,1 +1,62 @@
-<p>uncommon-page works!</p>,
+<section class="mx-5 mb-5">
+    <h1 class="text-4xl font-bold">Pipes no tan comunes</h1>
+    <h3 class="text-xl">Pipes incluidos en Angular</h3>
+</section>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+    <app-card title="i18nSelectPipe">
+        <p>oal {{ client().name }}, queremos {{ client().gender | i18nSelect:invitationMap }}</p>
+        <button class="btn btn-primary" (click)="changeClient()">Cambiar cliente</button>
+    </app-card>
+
+    <app-card title="i18nPluralPipe">
+        <p>{{clients().length | i18nPlural:clientsMap()}}</p>
+        <button [disabled]="clients().length === 0" class="btn btn-primary" (click)="deleteClient()">Borrar
+            cliente</button>
+    </app-card>
+
+    <app-card title="i18nSplicePipe">
+        <b>Original</b>
+        <p class="text-primary">
+            {{clients().join(', ')}}
+        </p>
+        <b class="mt-2">Slice:0:2</b>
+        <p class="text-primary">{{clients() | slice:0:2}}</p>
+        <b class="mt-2">Slice:1:5</b>
+        <p class="text-primary">{{clients() | slice:1:5}}</p>
+    </app-card>
+
+    <app-card title="JsonPipe">
+        <p class="text-primary">{{clients() | json}}</p>
+        <p class="text-primary">{{client() | json}}</p>
+        <p class="text-primary">{{clients().join(', ') | json}}</p>
+    </app-card>
+
+    <app-card title="KeyValuePipe">
+        <ul>
+            @for (item of profile | keyvalue; track item) {
+            <li>
+                <span class="text-primary">
+                    <strong>{{item.key}}</strong>
+                    {{item.value}}
+                </span>
+            </li>
+            }
+        </ul>
+    </app-card>
+
+    <app-card title="Async Pipe">
+        @if(promiseValue | async; as value){
+            <p>{{value}}</p>
+        }@else {
+            <p class="text-accent">cargando...</p>
+        }
+        <h3 class="text-3xl">Observable</h3>
+        @if(myObservableTimer | async; as value){
+            <p>Valor: {{value}}</p>
+        }@else {
+            <p>esperando el primer valor</p>
+        }
+    </app-card>
+</div>
